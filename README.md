@@ -23,7 +23,7 @@ Describe your cloud infrastructure in natural language, pick your provider (AWS 
 ### 1. Clone & Install
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/iac-generator.git
+git clone https://github.com/adityavani07/iac-generator.git
 cd iac-generator
 
 # Backend
