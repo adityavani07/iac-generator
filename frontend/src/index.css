@@ -1,0 +1,108 @@
+@import "tailwindcss";
+
+/* ── Custom Theme Tokens ────────────────────────────────────────────── */
+@theme {
+  --color-surface-950: #06060b;
+  --color-surface-900: #0c0c14;
+  --color-surface-800: #12121e;
+  --color-surface-700: #1a1a2e;
+  --color-surface-600: #252540;
+  --color-surface-500: #3a3a5c;
+  --color-surface-400: #6e6e8a;
+  --color-surface-300: #9d9db5;
+  --color-accent-400: #38bdf8;
+  --color-accent-500: #0ea5e9;
+  --color-accent-600: #0284c7;
+  --color-neon-cyan: #22d3ee;
+  --color-neon-purple: #a78bfa;
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+}
+
+/* ── Base ────────────────────────────────────────────────────────────── */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  background-color: var(--color-surface-950);
+  color: #e4e4ed;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ── Scrollbar ───────────────────────────────────────────────────────── */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-surface-600);
+  border-radius: 999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-surface-500);
+}
+
+/* ── Glow Animations ─────────────────────────────────────────────────── */
+@keyframes pulse-glow {
+  0%, 100% { opacity: 0.4; }
+  50%      { opacity: 1; }
+}
+
+@keyframes shimmer {
+  0%   { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+.animate-shimmer {
+  background: linear-gradient(
+    90deg,
+    var(--color-surface-700) 25%,
+    var(--color-surface-600) 50%,
+    var(--color-surface-700) 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.5s ease-in-out infinite;
+}
+
+/* ── Gradient Text ───────────────────────────────────────────────────── */
+.text-gradient {
+  background: linear-gradient(135deg, var(--color-neon-cyan), var(--color-accent-400), var(--color-neon-purple));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ── Glassmorphism Card ──────────────────────────────────────────────── */
+.glass-card {
+  background: rgba(18, 18, 30, 0.6);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(56, 189, 248, 0.08);
+}
+
+/* ── Code Block Override ─────────────────────────────────────────────── */
+.code-output pre {
+  margin: 0 !important;
+  border-radius: 0 0 12px 12px !important;
+  font-size: 0.85rem !important;
+}
+.code-output code {
+  font-family: var(--font-mono) !important;
+}
