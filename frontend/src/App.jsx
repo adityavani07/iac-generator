@@ -126,7 +126,7 @@ export default function App() {
           </div>
           <div className="flex items-center gap-2 text-xs text-surface-400">
             <Cpu className="w-3.5 h-3.5" />
-            <span className="font-mono">gemini-2.5-flash</span>
+            <span className="font-mono">gemini-3.1-flash-lite</span>
           </div>
         </div>
       </nav>

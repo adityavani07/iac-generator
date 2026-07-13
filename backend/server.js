@@ -5,9 +5,9 @@ import { GoogleGenAI } from "@google/genai";
 
 // ── Config ───────────────────────────────────────────────────────────
 const PORT = process.env.PORT || 3001;
-const MODEL = "gemini-2.5-flash";
+const MODEL = "gemini-3.1-flash-lite";
 
-const ai = new GoogleGenAI({}); // auto-detects GEMINI_API_KEY from env
+const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
 
 const SYSTEM_INSTRUCTION = `You are an expert cloud architect and Infrastructure-as-Code engineer.
 Your ONLY job is to generate syntactically correct, production-ready infrastructure code.
@@ -83,7 +83,9 @@ Generate the complete ${tool} code for ${provider} that fulfills this request.`;
 
     res.json({ code, language, model: MODEL });
   } catch (err) {
-    console.error("[Gemini Error]", err.message ?? err);
+    console.error("[Gemini Error] Status:", err.status);
+    console.error("[Gemini Error] Message:", err.message);
+    console.error("[Gemini Error] Full:", JSON.stringify(err, Object.getOwnPropertyNames(err), 2));
 
     if (err.status === 429) {
       return res.status(429).json({ error: "Rate limit exceeded. Please try again shortly." });
