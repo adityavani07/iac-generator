@@ -5,7 +5,7 @@ import { GoogleGenAI } from "@google/genai";
 
 // ── Config ───────────────────────────────────────────────────────────
 const PORT = process.env.PORT || 3001;
-const MODEL = "gemini-2.5-flash";
+const MODEL = "gemini-3.1-flash-lite";
 
 const ai = new GoogleGenAI({}); // auto-detects GEMINI_API_KEY from env
 
@@ -83,15 +83,20 @@ Generate the complete ${tool} code for ${provider} that fulfills this request.`;
 
     res.json({ code, language, model: MODEL });
   } catch (err) {
-    console.error("[Gemini Error]", err.message ?? err);
+    console.error("[Gemini Error]", err);
+    console.error("[Gemini Error Details]", JSON.stringify({
+      message: err.message,
+      status: err.status,
+      statusText: err.statusText,
+      errorDetails: err.errorDetails,
+    }, null, 2));
 
     if (err.status === 429) {
       return res.status(429).json({ error: "Rate limit exceeded. Please try again shortly." });
     }
 
-    res.status(500).json({
-      error: "Failed to generate infrastructure code. Please try again.",
-    });
+    const errorMsg = err.message || "Failed to generate infrastructure code. Please try again.";
+    res.status(500).json({ error: errorMsg });
   }
 });
 
