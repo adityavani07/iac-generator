@@ -390,9 +390,10 @@ export default function App() {
       <footer className="relative z-10 border-t border-surface-700/30 mt-16">
         <div className="mx-auto max-w-6xl px-6 py-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-surface-500">
           <p>
-            Built with{" "}
-            <span className="text-accent-400 font-medium">Gemini AI</span> ·
-            Always review generated code before deploying
+            Built by{" "}
+            <span className="text-gradient font-semibold">Pixel Bug</span>
+            {" "}🐛 · Powered by{" "}
+            <span className="text-accent-400 font-medium">Gemini AI</span>
           </p>
           <p className="font-mono">v1.0.0</p>
         </div>

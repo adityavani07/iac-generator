@@ -2,6 +2,7 @@
   "name": "iac-generator-frontend",
   "private": true,
   "version": "1.0.0",
+  "author": "Pixel Bug",
   "type": "module",
   "scripts": {
     "dev": "vite",

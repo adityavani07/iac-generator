@@ -2,6 +2,7 @@
   "name": "iac-generator-backend",
   "version": "1.0.0",
   "description": "AI Cloud Architect - IaC Generator Backend",
+  "author": "Pixel Bug",
   "main": "server.js",
   "type": "module",
   "scripts": {

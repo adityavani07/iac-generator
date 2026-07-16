@@ -2,17 +2,19 @@
 
 > Turn plain English into production-ready Infrastructure-as-Code, powered by Gemini AI.
 
+**Built by [Pixel Bug](https://github.com/adityavani07/iac-generator)** 🐛
+
 Describe your cloud infrastructure in natural language, pick your provider (AWS / GCP / Azure) and tool (Terraform / CloudFormation), and get secure, best-practice code generated instantly.
 
 ---
 
 ## Tech Stack
 
-| Layer    | Technology                                   |
-| -------- | -------------------------------------------- |
-| Frontend | React 19 (Vite), Tailwind CSS v4, Lucide     |
-| Backend  | Node.js (ES Modules), Express 5              |
-| AI       | Google Gemini 2.5 Flash (`@google/genai`)    |
+| Layer    | Technology                                      |
+| -------- | ----------------------------------------------- |
+| Frontend | React 19 (Vite), Tailwind CSS v4, Lucide        |
+| Backend  | Node.js (ES Modules), Express 5                 |
+| AI       | Google Gemini 3.1 Flash Lite (`@google/genai`)   |
 
 ## Quick Start
 
@@ -74,7 +76,7 @@ iac-generator/
 └── README.md
 ```
 
-## Branch Strategy
+## Team — Pixel Bug 🐛
 
 | Branch                         | Owner       | Purpose                        |
 | ------------------------------ | ----------- | ------------------------------ |
@@ -86,4 +88,4 @@ iac-generator/
 
 ## License
 
-MIT
+MIT © Pixel Bug
