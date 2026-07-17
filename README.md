@@ -106,11 +106,20 @@ iac-generator/
 
 ## Team — Pixel Bug 🐛
 
-| Branch                         | Owner       | Purpose                        |
-| ------------------------------ | ----------- | ------------------------------ |
-| `main`                         | Team Lead   | Protected, merge via PR only   |
-| `feature/frontend-styling`     | Teammate A  | UI/UX improvements             |
-| `feature/backend-error-handling`| Teammate B | API hardening & error handling |
+| Role | Member | GitHub | Responsibilities |
+| ---- | ------ | ------ | ---------------- |
+| 🎯 **Team Lead** | Aditya Vani | [@adityavani07](https://github.com/adityavani07) | Architecture, full-stack setup, Gemini integration, deployment & Git workflow |
+| 🎨 **Frontend** | Viven | [@vivennnn](https://github.com/vivennnn) | UI/UX styling & component improvements |
+| 🎨 **Frontend** | Devansh Borad | [@boraddevansh-lang](https://github.com/boraddevansh-lang) | UI/UX styling & component improvements |
+| ⚙️ **Backend** | Deval | [@Deval1506](https://github.com/Deval1506) | API hardening, error handling & validation |
+
+### Branch Strategy
+
+| Branch | Owner | Purpose |
+| ------ | ----- | ------- |
+| `main` | [@adityavani07](https://github.com/adityavani07) | Protected — merge via PR only |
+| `feature/frontend-styling` | [@vivennnn](https://github.com/vivennnn) · [@boraddevansh-lang](https://github.com/boraddevansh-lang) | UI/UX improvements |
+| `feature/backend-error-handling` | [@Deval1506](https://github.com/Deval1506) | API hardening & error handling |
 
 ---
 
