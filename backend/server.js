@@ -21,7 +21,22 @@ STRICT RULES:
 
 // ── Express App ──────────────────────────────────────────────────────
 const app = express();
-app.use(cors());
+
+// CORS: allow Vercel frontend in production, all origins in dev
+const allowedOrigins = process.env.CORS_ORIGIN
+  ? process.env.CORS_ORIGIN.split(",").map((o) => o.trim())
+  : [];
+
+app.use(
+  cors({
+    origin: allowedOrigins.length > 0
+      ? (origin, cb) => {
+          if (!origin || allowedOrigins.includes(origin)) cb(null, true);
+          else cb(new Error("Not allowed by CORS"));
+        }
+      : true, // allow all in dev
+  })
+);
 app.use(express.json());
 
 // ── Health Check ─────────────────────────────────────────────────────

@@ -1,0 +1,15 @@
+services:
+  - type: web
+    name: iac-generator-api
+    runtime: node
+    region: oregon
+    rootDir: backend
+    buildCommand: npm install
+    startCommand: node server.js
+    envVars:
+      - key: GEMINI_API_KEY
+        sync: false  # set manually in Render dashboard
+      - key: CORS_ORIGIN
+        sync: false  # set to your Vercel frontend URL
+      - key: NODE_ENV
+        value: production
