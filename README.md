@@ -109,9 +109,9 @@ iac-generator/
 | Role | Member | GitHub | Responsibilities |
 | ---- | ------ | ------ | ---------------- |
 | 🎯 **Team Lead** | Aditya Vani | [@adityavani07](https://github.com/adityavani07) | Architecture, full-stack setup, Gemini integration, deployment & Git workflow |
-| 🎨 **Frontend** | Viven | [@vivennnn](https://github.com/vivennnn) | UI/UX styling & component improvements |
+| 🎨 **Frontend** | Vaishnavi Vyas | [@vivennnn](https://github.com/vivennnn) | UI/UX styling & component improvements |
 | 🎨 **Frontend** | Devansh Borad | [@boraddevansh-lang](https://github.com/boraddevansh-lang) | UI/UX styling & component improvements |
-| ⚙️ **Backend** | Deval | [@Deval1506](https://github.com/Deval1506) | API hardening, error handling & validation |
+| ⚙️ **Backend** | Deval Rabadiya | [@Deval1506](https://github.com/Deval1506) | API hardening, error handling & validation |
 
 ### Branch Strategy
 
