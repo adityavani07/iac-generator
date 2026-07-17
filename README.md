@@ -10,11 +10,12 @@ Describe your cloud infrastructure in natural language, pick your provider (AWS 
 
 ## Tech Stack
 
-| Layer    | Technology                                      |
-| -------- | ----------------------------------------------- |
-| Frontend | React 19 (Vite), Tailwind CSS v4, Lucide        |
-| Backend  | Node.js (ES Modules), Express 5                 |
-| AI       | Google Gemini 3.1 Flash Lite (`@google/genai`)   |
+| Layer    | Technology                                         |
+| -------- | -------------------------------------------------- |
+| Frontend | React 19 (Vite), Tailwind CSS v4, Lucide           |
+| Backend  | Node.js (ES Modules), Express 5                    |
+| AI       | Google Gemini 3.1 Flash Lite (`@google/genai`)      |
+| Deploy   | Vercel (frontend) · Render (backend)                |
 
 ## Quick Start
 
@@ -61,20 +62,47 @@ Open [http://localhost:5173](http://localhost:5173) in your browser.
 ```
 iac-generator/
 ├── backend/
-│   ├── server.js          # Express API + Gemini integration
-│   ├── .env.example       # Environment template
-│   └── package.json
+│   ├── .env.example       # Environment template (GEMINI_API_KEY, CORS_ORIGIN)
+│   ├── package.json       # Dependencies & scripts
+│   └── server.js          # Express API + Gemini integration
 ├── frontend/
 │   ├── src/
 │   │   ├── App.jsx        # Main application component
-│   │   ├── main.jsx       # React entry point
-│   │   └── index.css      # Tailwind + custom theme
-│   ├── index.html
-│   ├── vite.config.js
-│   └── package.json
-├── .gitignore
+│   │   ├── index.css      # Tailwind v4 theme + animations
+│   │   └── main.jsx       # React DOM entry point
+│   ├── index.html         # HTML entry with Google Fonts + SEO meta
+│   ├── package.json       # Dependencies & scripts
+│   └── vite.config.js     # Vite + React + Tailwind plugins
+├── .gitignore             # Ignores node_modules, .env, dist
+├── install.cmd            # Windows one-click setup script
+├── render.yaml            # Render deployment blueprint
 └── README.md
 ```
+
+## Deployment
+
+| Service  | Platform | Root Directory | URL |
+| -------- | -------- | -------------- | --- |
+| Backend  | Render   | `backend`      | `https://iac-generator-api-XXXX.onrender.com` |
+| Frontend | Vercel   | `frontend`     | `https://iac-generator-XXXX.vercel.app` |
+
+### Environment Variables
+
+**Render (Backend):**
+
+| Key | Description |
+|---|---|
+| `GEMINI_API_KEY` | Your Google Gemini API key |
+| `CORS_ORIGIN` | Your Vercel frontend URL (e.g. `https://iac-generator.vercel.app`) |
+| `NODE_ENV` | `production` |
+
+**Vercel (Frontend):**
+
+| Key | Description |
+|---|---|
+| `VITE_API_URL` | Your Render backend URL (e.g. `https://iac-generator-api.onrender.com`) |
+
+---
 
 ## Team — Pixel Bug 🐛
 
