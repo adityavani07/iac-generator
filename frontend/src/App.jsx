@@ -11,9 +11,8 @@ import {
   AlertTriangle,
 } from "lucide-react";
 
-const API_URL =
-  (import.meta.env.VITE_API_URL || "http://localhost:3001") +
-  "/api/generate-iac";
+const baseUrl = import.meta.env.VITE_API_URL || "http://localhost:3001";
+const API_URL = baseUrl.replace(/\/$/, "") + "/api/generate-iac";
 
 const PROVIDERS = [
   { value: "AWS", label: "Amazon Web Services" },

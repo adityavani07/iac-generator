@@ -32,15 +32,21 @@ const app = express();
 
 // CORS: allow Vercel frontend in production, all origins in dev
 const allowedOrigins = process.env.CORS_ORIGIN
-  ? process.env.CORS_ORIGIN.split(",").map((o) => o.trim())
+  ? process.env.CORS_ORIGIN.split(",").map((o) => o.trim().replace(/\/$/, ""))
   : [];
 
 app.use(
   cors({
     origin: allowedOrigins.length > 0
       ? (origin, cb) => {
-          if (!origin || allowedOrigins.includes(origin)) cb(null, true);
-          else cb(new Error("Not allowed by CORS"));
+          if (!origin) return cb(null, true);
+          const originNoSlash = origin.replace(/\/$/, "");
+          // Allow if it matches the list, OR if it's a Vercel preview deployment
+          if (allowedOrigins.includes(originNoSlash) || originNoSlash.endsWith("vercel.app")) {
+            cb(null, true);
+          } else {
+            cb(new Error(`Not allowed by CORS: ${origin}`));
+          }
         }
       : true, // allow all in dev
   })
