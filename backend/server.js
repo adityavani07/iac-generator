@@ -7,7 +7,15 @@ import { GoogleGenAI } from "@google/genai";
 const PORT = process.env.PORT || 3001;
 const MODEL = "gemini-3.1-flash-lite";
 
-const ai = new GoogleGenAI({}); // auto-detects GEMINI_API_KEY from env
+const apiKeys = process.env.GEMINI_API_KEY
+  ? process.env.GEMINI_API_KEY.split(",").map((k) => k.trim()).filter(Boolean)
+  : [];
+let currentKeyIndex = 0;
+
+function getAiClient() {
+  if (apiKeys.length === 0) return new GoogleGenAI({}); // fallback to default env behavior
+  return new GoogleGenAI({ apiKey: apiKeys[currentKeyIndex] });
+}
 
 const SYSTEM_INSTRUCTION = `You are an expert cloud architect and Infrastructure-as-Code engineer.
 Your ONLY job is to generate syntactically correct, production-ready infrastructure code.
@@ -40,6 +48,10 @@ app.use(
 app.use(express.json());
 
 // ── Health Check ─────────────────────────────────────────────────────
+app.get("/", (_req, res) => {
+  res.json({ message: "AI Cloud Architect API is running! Please use the Vercel frontend to interact with this API." });
+});
+
 app.get("/api/health", (_req, res) => {
   res.json({ status: "ok", model: MODEL });
 });
@@ -78,14 +90,42 @@ User Request: ${prompt}
 Generate the complete ${tool} code for ${provider} that fulfills this request.`;
 
   try {
-    const response = await ai.models.generateContent({
-      model: MODEL,
-      contents: userPrompt,
-      config: {
-        systemInstruction: SYSTEM_INSTRUCTION,
-        temperature: 0.2,
-      },
-    });
+    let attempts = 0;
+    const maxAttempts = Math.max(1, apiKeys.length);
+    let response = null;
+    let lastError = null;
+
+    while (attempts < maxAttempts) {
+      try {
+        const ai = getAiClient();
+        response = await ai.models.generateContent({
+          model: MODEL,
+          contents: userPrompt,
+          config: {
+            systemInstruction: SYSTEM_INSTRUCTION,
+            temperature: 0.2,
+          },
+        });
+        break; // Success, exit retry loop
+      } catch (err) {
+        lastError = err;
+        // If it's a rate limit (429), quota error (403), or overloaded (503), try the next key
+        if (err.status === 429 || err.status === 403 || err.status === 503) {
+          console.warn(`⚠️ [API Retry] Request failed with status ${err.status}. Switching to next API key if available...`);
+          if (apiKeys.length > 1) {
+            currentKeyIndex = (currentKeyIndex + 1) % apiKeys.length;
+          }
+          attempts++;
+        } else {
+          // Re-throw other errors (e.g., bad request) immediately
+          throw err;
+        }
+      }
+    }
+
+    if (!response) {
+      throw lastError; // If all attempts failed
+    }
 
     const rawText = response.text ?? "";
 
@@ -119,5 +159,5 @@ Generate the complete ${tool} code for ${provider} that fulfills this request.`;
 app.listen(PORT, () => {
   console.log(`\n🚀  IaC Generator API running → http://localhost:${PORT}`);
   console.log(`   Model: ${MODEL}`);
-  console.log(`   API Key: ${process.env.GEMINI_API_KEY ? "✔ loaded" : "✘ MISSING — set GEMINI_API_KEY in .env"}\n`);
+  console.log(`   API Key: ${apiKeys.length > 1 ? `✔ loaded ${apiKeys.length} keys (with fallback support)` : apiKeys.length === 1 ? "✔ loaded 1 key" : "✘ MISSING — set GEMINI_API_KEY in .env"}\n`);
 });
